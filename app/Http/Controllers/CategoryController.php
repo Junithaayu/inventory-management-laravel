@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -30,7 +30,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+        ]);
+        
+        Category::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     /**
