@@ -31,7 +31,32 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $category->name }}</td>
-                                <td>Edit | Hapus</td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <a
+                                            href="{{ route('categories.edit', $category) }}"
+                                            class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+                                            Edit
+                                            </a>
+
+                                            <form
+                                                action="{{ route('categories.destroy', $category) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button
+                                                    type="submit"
+                                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                                                    Hapus
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+                                    </td>
                             </tr>
                         @empty
                             <tr>
