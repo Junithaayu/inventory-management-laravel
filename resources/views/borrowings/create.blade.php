@@ -8,6 +8,12 @@
     <div class="py-6">
         <div class="max-w-3xl mx-auto">
 
+        @if(session('error'))
+            <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+        
             <div class="bg-white shadow rounded-lg p-6">
 
                 <form action="{{ route('borrowings.store') }}" method="POST">

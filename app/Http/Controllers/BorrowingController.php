@@ -43,6 +43,14 @@ class BorrowingController extends Controller
             'jumlah' => 'required|integer|min:1',
         ]);
 
+        $product = Product::findOrFail($request->product_id);
+
+        if ($product->stok < $request->jumlah) {
+            return back()
+                ->withInput()
+                ->with('error', 'Stok barang tidak mencukupi.');
+        }
+
         $borrowing = Borrowing::create([
             'user_id' => auth()->id(),
             'nama_peminjam' => $request->nama_peminjam,
@@ -56,10 +64,37 @@ class BorrowingController extends Controller
             'jumlah' => $request->jumlah,
         ]);
 
+        $product->decrement('stok', $request->jumlah);
 
         return redirect()
             ->route('borrowings.index')
             ->with('success', 'Peminjaman berhasil ditambahkan.');
+    }
+
+    public function return(Borrowing $borrowing)
+    {
+        if ($borrowing->status == 'Dikembalikan') {
+            return redirect()
+                ->route('borrowings.index')
+                ->with('success', 'Barang sudah dikembalikan.');
+        }
+
+        foreach ($borrowing->details as $detail) {
+            $product = $detail->product;
+
+            $product->update([
+                'stok' => $product->stok + $detail->jumlah,
+            ]);
+        }
+
+        $borrowing->update([
+            'status' => 'Dikembalikan',
+            'tanggal_kembali' => now(),
+        ]);
+
+        return redirect()
+            ->route('borrowings.index')
+            ->with('success', 'Barang berhasil dikembalikan.');
     }
 
     /**

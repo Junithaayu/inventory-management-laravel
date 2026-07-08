@@ -36,6 +36,7 @@
                             <th class="border px-4 py-2">Jumlah</th>
                             <th class="border px-4 py-2">Tanggal Pinjam</th>
                             <th class="border px-4 py-2">Status</th>
+                            <th class="border px-4 py-2">Aksi</th>
                         </tr>
                     </thead>
 
@@ -63,12 +64,34 @@
                                 </td>
 
                                 <td class="border px-4 py-2">
-                                    {{ $borrowing->status }}
+                                    "{{ $borrowing->status }}"
+                                </td>
+
+                                <td class="border px-4 py-2 text-center">
+
+                                    @if($borrowing->status == 'Dipinjam')
+                                        <form action="{{ route('borrowings.return', $borrowing) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <button
+                                                type="submit"
+                                                class="bg-green-600 text-white px-3 py-1 rounded">
+                                                Kembalikan
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-green-600 font-semibold">
+                                            Sudah Dikembalikan
+                                        </span>
+                                    @endif
+
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-4">
+                                <td colspan="7" class="text-center py-4">
                                     Belum ada data peminjaman.
                                 </td>
                             </tr>

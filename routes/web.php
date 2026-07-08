@@ -23,6 +23,10 @@ Route::resource('products', ProductController::class)
 Route::resource('borrowings', BorrowingController::class)
     ->middleware(['auth', 'role:Admin']);
 
+Route::patch('/borrowings/{borrowing}/return', [BorrowingController::class, 'return'])
+    ->name('borrowings.return')
+    ->middleware(['auth', 'role:Admin']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
