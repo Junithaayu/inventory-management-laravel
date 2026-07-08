@@ -100,6 +100,12 @@
                             </td>
 
                             <td class="border p-2">
+
+                                <a href="{{ route('products.show', $product) }}"
+                                    class="text-green-600 hover:underline mr-3">
+                                    Lihat
+                                </a>
+                                
                                 <a href="{{ route('products.edit', $product) }}"
                                 class="text-blue-600 hover:underline mr-3">
                                     Edit
