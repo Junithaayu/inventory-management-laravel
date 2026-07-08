@@ -12,13 +12,21 @@ class BorrowingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $keyword = $request->keyword;
+
         $borrowings = Borrowing::with('details.product')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('nama_peminjam', 'like', "%{$keyword}%")
+                    ->orWhereHas('details.product', function ($q) use ($keyword) {
+                        $q->where('nama_barang', 'like', "%{$keyword}%");
+                    });
+            })
             ->latest()
             ->paginate(10);
 
-        return view('borrowings.index', compact('borrowings'));
+        return view('borrowings.index', compact('borrowings', 'keyword'));
     }
 
     /**

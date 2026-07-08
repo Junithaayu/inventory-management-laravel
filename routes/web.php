@@ -5,13 +5,31 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Borrowing;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+
+    $jumlahKategori = Category::count();
+
+    $jumlahProduk = Product::count();
+
+    $barangDipinjam = Borrowing::where('status', 'Dipinjam')->count();
+
+    $barangDikembalikan = Borrowing::where('status', 'Dikembalikan')->count();
+
+    return view('dashboard', compact(
+        'jumlahKategori',
+        'jumlahProduk',
+        'barangDipinjam',
+        'barangDikembalikan'
+    ));
+
 })->middleware(['auth', 'role:Admin'])->name('dashboard');
 
 Route::resource('categories', CategoryController::class)

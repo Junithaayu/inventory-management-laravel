@@ -17,14 +17,35 @@
             <div class="bg-white shadow rounded-lg p-6">
 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold">
-                        Daftar Peminjaman
-                    </h2>
+
+                    <form action="{{ route('borrowings.index') }}" method="GET" class="flex gap-2">
+
+                        <input
+                            type="text"
+                            name="keyword"
+                            value="{{ $keyword }}"
+                            placeholder="Cari peminjam atau barang..."
+                            class="border rounded px-3 py-2 w-72">
+
+                        <button
+                            type="submit"
+                            class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                            Cari
+                        </button>
+
+                        <a
+                            href="{{ route('borrowings.index') }}"
+                            class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">
+                            Reset
+                        </a>
+
+                    </form>
 
                     <a href="{{ route('borrowings.create') }}"
-                       class="bg-blue-600 text-white px-4 py-2 rounded">
+                    class="bg-blue-600 text-white px-4 py-2 rounded">
                         + Tambah Peminjaman
                     </a>
+
                 </div>
 
                 <table class="w-full border border-gray-300">
@@ -64,7 +85,7 @@
                                 </td>
 
                                 <td class="border px-4 py-2">
-                                    "{{ $borrowing->status }}"
+                                    {{ $borrowing->status }}
                                 </td>
 
                                 <td class="border px-4 py-2 text-center">

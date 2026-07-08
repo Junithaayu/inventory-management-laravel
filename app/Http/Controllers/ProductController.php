@@ -11,13 +11,19 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $keyword = $request->keyword;
+
         $products = Product::with('category')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('nama_barang', 'like', "%{$keyword}%")
+                    ->orWhere('kode_barang', 'like', "%{$keyword}%");
+            })
             ->latest()
             ->paginate(10);
 
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'keyword'));
     }
 
     /**
