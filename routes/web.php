@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'role:Admin'])->name('dashboard');
 
 Route::resource('categories', CategoryController::class)
+    ->middleware(['auth', 'role:Admin']);
+
+Route::resource('products', ProductController::class)
+    ->middleware(['auth', 'role:Admin']);
+
+Route::resource('borrowings', BorrowingController::class)
     ->middleware(['auth', 'role:Admin']);
 
 Route::middleware('auth')->group(function () {
