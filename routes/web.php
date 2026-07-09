@@ -54,20 +54,25 @@ Route::get('/dashboard', function () {
         'grafikPeminjaman'
     ));
 
-})->middleware(['auth', 'role:Admin'])->name('dashboard');
+})->middleware(['auth', 'role:Admin|Staff|Manager'])->name('dashboard');
 
 Route::resource('categories', CategoryController::class)
     ->middleware(['auth', 'role:Admin']);
 
 Route::resource('products', ProductController::class)
+    ->only(['index', 'show'])
+    ->middleware(['auth', 'role:Admin|Staff|Manager']);
+
+Route::resource('products', ProductController::class)
+    ->except(['index', 'show'])
     ->middleware(['auth', 'role:Admin']);
 
 Route::resource('borrowings', BorrowingController::class)
-    ->middleware(['auth', 'role:Admin']);
+    ->middleware(['auth', 'role:Admin|Staff|Manager']);
 
 Route::patch('/borrowings/{borrowing}/return', [BorrowingController::class, 'return'])
     ->name('borrowings.return')
-    ->middleware(['auth', 'role:Admin']);
+    ->middleware(['auth', 'role:Admin|Staff|Manager']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

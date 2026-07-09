@@ -28,14 +28,16 @@
                         </button>
 
                     </form>
-
+                    
+                    @role('Admin')
                     <a
                         href="{{ route('products.create') }}"
                         class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                         + Tambah Produk
                     </a>
+                    @endrole
 
-                </div>>
+                </div>
 
                 <table class="w-full border border-gray-300">
 
@@ -105,30 +107,35 @@
                                     class="text-green-600 hover:underline mr-3">
                                     Lihat
                                 </a>
-                                
-                                <a href="{{ route('products.edit', $product) }}"
-                                class="text-blue-600 hover:underline mr-3">
-                                    Edit
-                                </a>
 
-                                <form action="{{ route('products.destroy', $product) }}"
-                                    method="POST"
-                                    class="inline"
-                                    onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                @role('Admin')
 
-                                    @csrf
-                                    @method('DELETE')
+                                    <a href="{{ route('products.edit', $product) }}"
+                                        class="text-blue-600 hover:underline mr-3">
+                                        Edit
+                                    </a>
 
-                                    <button
-                                        type="submit"
-                                        class="text-red-600 hover:underline">
-                                        Hapus
-                                    </button>
+                                    <form action="{{ route('products.destroy', $product) }}"
+                                        method="POST"
+                                        class="inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
 
-                                </form>
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="text-red-600 hover:underline">
+                                            Hapus
+                                        </button>
+
+                                    </form>
+
+                                @endrole
+
                             </td>
 
-                        </tr>
+                            </tr>
 
                         @empty
 
