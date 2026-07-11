@@ -41,10 +41,12 @@
 
                     </form>
 
+                    @role('Admin|Staff')
                     <a href="{{ route('borrowings.create') }}"
                     class="bg-blue-600 text-white px-4 py-2 rounded">
                         + Tambah Peminjaman
                     </a>
+                    @endrole
 
                 </div>
 
@@ -91,6 +93,8 @@
                                 <td class="border px-4 py-2 text-center">
 
                                     @if($borrowing->status == 'Dipinjam')
+
+                                        @role('Admin|Staff')
                                         <form action="{{ route('borrowings.return', $borrowing) }}"
                                             method="POST">
                                             @csrf
@@ -102,6 +106,14 @@
                                                 Kembalikan
                                             </button>
                                         </form>
+                                        @endrole
+
+                                        @role('Manager')
+                                        <span class="text-gray-500">
+                                            Menunggu Pengembalian
+                                        </span>
+                                        @endrole
+
                                     @else
                                         <span class="text-green-600 font-semibold">
                                             Sudah Dikembalikan
