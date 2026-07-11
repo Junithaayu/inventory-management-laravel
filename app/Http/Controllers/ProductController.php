@@ -34,7 +34,7 @@ class ProductController extends Controller
         $categories = Category::orderBy('name')->get();
 
         return view('products.create', compact('categories'));
-    }
+    } 
 
     /**
      * Store a newly created resource in storage.

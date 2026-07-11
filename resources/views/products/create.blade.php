@@ -1,1 +1,3 @@
-HALO CREATE PRODUK
+<x-app-layout>
+    HALO
+</x-app-layout>
