@@ -60,12 +60,7 @@ Route::resource('categories', CategoryController::class)
     ->middleware(['auth', 'role:Admin']);
 
 Route::resource('products', ProductController::class)
-    ->only(['index', 'show'])
-    ->middleware(['auth', 'role:Admin|Staff|Manager']);
-
-Route::resource('products', ProductController::class)
-    ->except(['index', 'show'])
-    ->middleware(['auth', 'role:Admin']);
+    ->middleware('auth');
 
 Route::resource('borrowings', BorrowingController::class)
     ->middleware(['auth', 'role:Admin|Staff|Manager']);
