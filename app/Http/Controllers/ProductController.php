@@ -31,9 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name')->get();
-
-        return view('products.create', compact('categories'));
+        dd('MASUK CREATE');
     }
 
     /**
