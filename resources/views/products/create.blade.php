@@ -11,7 +11,7 @@
 
                 HALO
 
-                <form method="POST">
+                <form action="{{ route('products.store') }}" method="POST">
                     @csrf
 
                     <button type="submit">
