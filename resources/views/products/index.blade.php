@@ -69,7 +69,7 @@
 
                                 @if($product->gambar)
                                     <img
-                                        src="{{ asset('storage/'.$product->gambar) }}"
+                                        src="{{ url('images/'.$product->gambar) }}"
                                         class="w-20 h-20 object-cover rounded">
                                 @else
                                     -

@@ -9,6 +9,16 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Borrowing;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+
+Route::get('/images/{path}', function ($path) {
+    abort_unless(Storage::disk('public')->exists($path), 404);
+
+    return Response::file(
+        Storage::disk('public')->path($path)
+    );
+})->where('path', '.*');
 
 Route::get('/', function () {
     return view('welcome');

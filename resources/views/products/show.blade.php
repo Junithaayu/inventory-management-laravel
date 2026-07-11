@@ -13,7 +13,7 @@
                 <div class="mb-6">
                     @if($product->gambar)
                         <img
-                            src="{{ asset('storage/'.$product->gambar) }}"
+                            src="{{ url('images/'.$product->gambar) }}"
                             class="w-56 rounded border">
                     @else
                         <p>Tidak ada gambar.</p>
