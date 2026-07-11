@@ -14,24 +14,31 @@
                 <form action="{{ route('products.store') }}" method="POST">
                     @csrf
 
+                    <div class="mb-4">
+                        <label>Kategori</label>
+
+                        <select name="category_id">
+                            <option value="">Pilih</option>
+
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <input
+                        type="text"
+                        name="kode_barang"
+                        class="w-full border rounded px-3 py-2">
+
                     <button type="submit">
                         Simpan
                     </button>
+
                 </form>
 
-                <div class="mb-4">
-                    <label>Kategori</label>
-
-                    <select name="category_id">
-                        <option value="">Pilih</option>
-
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
             </div>
         </div>
     </div>
